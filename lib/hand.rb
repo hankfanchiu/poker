@@ -35,13 +35,22 @@ class Hand
   end
 
   def calculate
-
+    # Dumb version
+    return 10 if royal_flush?
+    return 9 if straight_flush?
+    return 8 if four_of_a_kind?
+    return 7 if full_house?
+    return 6 if flush?
+    return 5 if straight?
+    return 4 if three_of_a_kind?
+    return 3 if two_pair?
+    return 2 if one_pair?
+    1
   end
 
   def royal_flush?
-    straight_flush? &&
-      @card_values.include?(TRUE_VALUES[:A]) &&
-      @card_values.include?(TRUE_VALUES[:K])
+    @card_frequency.include?(:A) && @card_frequency.include?(:K) &&
+      straight_flush?
   end
 
   def straight_flush?
@@ -57,10 +66,10 @@ class Hand
   end
 
   def flush?
-    suit = @cards.first.suit
+    suit_for_comparison = @cards.first.suit
 
     @cards[1..4].each do |card|
-      return false unless card.suit == suit
+      return false unless card.suit == suit_for_comparison
     end
     true
   end
