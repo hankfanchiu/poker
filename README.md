@@ -1,1 +1,3 @@
-# App Academy Poker Game (TDD)
+# Poker
+
+An App Academy project demonstrating test-driven development (incomplete)
