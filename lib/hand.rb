@@ -21,8 +21,12 @@ class Hand
 
   def initialize(cards)
     @cards = cards
-    @card_values = @cards.map { |card| TRUE_VALUES[card.value] }
+    generate_card_values
     generate_frequency_hash
+  end
+
+  def generate_card_values
+    @card_values = @cards.map { |card| TRUE_VALUES[card.value] }
   end
 
   def generate_frequency_hash
@@ -35,8 +39,8 @@ class Hand
   end
 
   def royal_flush?
-    return false unless straight_flush?
-    @card_values.include?(TRUE_VALUES[:A]) &&
+    straight_flush? &&
+      @card_values.include?(TRUE_VALUES[:A]) &&
       @card_values.include?(TRUE_VALUES[:K])
   end
 
