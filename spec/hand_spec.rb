@@ -31,16 +31,23 @@ describe "Hand" do
             ] }
   let(:royal_flush_hand) { Hand.new(royal_flush_cards) }
 
+  let(:full_house_cards) { [
+              Card.new(10, :hearts),
+              Card.new(10, :spades),
+              Card.new(10, :clubs),
+              Card.new(3, :spades),
+              Card.new(3, :clubs)
+            ] }
+  let(:full_house_hand) { Hand.new(full_house_cards) }
+
   describe "#straight?" do
     it "returns true if the Hand is a straight" do
-
       expect(royal_flush_hand.straight?).to be true
     end
   end
 
   describe "#flush?" do
     it "returns true if the Hand is a flush" do
-
       expect(royal_flush_hand.flush?).to be true
     end
   end
@@ -51,17 +58,15 @@ describe "Hand" do
     end
 
     it "returns false if the Hand is not royal flush" do
-      not_royal_flush_hand = [
-                  Card.new(10, :spades),
-                  Card.new(:J, :spades),
-                  Card.new(:A, :hearts),
-                  Card.new(:Q, :spades),
-                  Card.new(:K, :spades)
-                ]
-      hand = Hand.new(not_royal_flush_hand)
+      not_royal_flush_hand = full_house_hand
 
-      expect(hand.royal_flush?).to be false
+      expect(not_royal_flush_hand.royal_flush?).to be false
     end
   end
-
+  
+  describe "#full_house?" do
+    it "returns true if the Hand is a full house" do
+      expect(full_house_hand.full_house?).to be true
+    end
+  end
 end
